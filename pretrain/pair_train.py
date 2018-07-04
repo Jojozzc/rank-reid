@@ -1,7 +1,11 @@
 import os
 
+from config import train_config
+from config import path_config
+from resnet import *
 import numpy as np
 from keras import Input
+from utils import class_helper
 from keras import backend as K
 from keras.applications.resnet50 import preprocess_input
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau
@@ -44,6 +48,15 @@ def mix_data_prepare(data_list_path, train_dir_path):
 
 
 def reid_data_prepare(data_list_path, train_dir_path):
+    '''
+    function: 根据data.list 读取图片
+    :param data_list_path:
+    :param train_dir_path:
+    :return:
+    '''
+    print('reid_data_prepare')
+    print('data list path: ', data_list_path)
+    print('train dir path: ', train_dir_path)
     if 'mix' in data_list_path:
         return mix_data_prepare(data_list_path, train_dir_path)
     class_img_labels = dict()
@@ -66,11 +79,10 @@ def reid_data_prepare(data_list_path, train_dir_path):
             img = preprocess_input(img)
 
             class_img_labels[str(class_cnt)].append(img[0])
-
     return class_img_labels
 
-
 def pair_generator(class_img_labels, batch_size, train=False):
+    print('pair generating...')
     cur_epoch = 0
     pos_prop = 5
     while True:
@@ -95,7 +107,6 @@ def pair_generator(class_img_labels, batch_size, train=False):
             len_right_label_i = len(class_img_labels[str(right_label[i])])
             right_images.append(class_img_labels[str(right_label[i])][int(slice_start * len_right_label_i):][
                                     choice(len_right_label_i - int(len_right_label_i * slice_start))])
-
         left_images = np.array(left_images)
         right_images = np.array(right_images)
         binary_label = (left_label == right_label).astype(int)
@@ -103,7 +114,7 @@ def pair_generator(class_img_labels, batch_size, train=False):
         right_label = to_categorical(right_label, num_classes=len(class_img_labels))
         cur_epoch += 1
         yield [left_images, right_images], [left_label, right_label, binary_label]
-
+        print('pair generated')
 
 def eucl_dist(inputs):
     x, y = inputs
@@ -116,9 +127,14 @@ def dis_sigmoid(dis):
 
 
 def pair_model(source_model_path, num_classes):
+    print('pair model[source model path:', source_model_path, ', num_classes:', num_classes, ']')
     softmax_model = load_model(source_model_path)
-    # base_model = ResNet50(weights='imagenet', include_top=False, input_tensor=Input(shape=(224, 224, 3)))
-    base_model = Model(inputs=softmax_model.input, outputs=[softmax_model.get_layer('avg_pool').output], name='resnet50')
+    base_model = ResNet50(weights='imagenet', include_top=False, input_tensor=Input(shape=(224, 224, 3)))
+    # 问题：Error: 不存在avg_pool,ValueError: No such layer: avg_pool
+    # 改成fc8试试
+    # base_model = Model(inputs=softmax_model.input, outputs=[softmax_model.get_layer('avg_pool').output], name='resnet50')
+    # base_model = Model(inputs=softmax_model.input, outputs=[softmax_model.get_layer('avg_pool').output], name='resnet50')
+
     img1 = Input(shape=(224, 224, 3), name='img_1')
     img2 = Input(shape=(224, 224, 3), name='img_2')
     feature1 = Flatten()(base_model(img1))
@@ -135,13 +151,15 @@ def pair_model(source_model_path, num_classes):
     model = Model(inputs=[img1, img2], outputs=[category_predict1, category_predict2, judge])
     model.get_layer('ctg_out_1').set_weights(softmax_model.get_layer('fc8').get_weights())
     model.get_layer('ctg_out_2').set_weights(softmax_model.get_layer('fc8').get_weights())
-    plot_model(model, to_file='model_combined.png')
+
+    # print('ploting model...')
+    # plot_model(model, to_file='model_combined.png')
+    # print('model ploted')
     # for layer in base_model.layers[:-10]:
     #     layer.trainable = False
     for layer in base_model.layers:
         layer.trainable = True
     return model
-
 
 def common_lr(epoch):
     if epoch < 20:
@@ -150,6 +168,13 @@ def common_lr(epoch):
         return 0.001
 
 def pair_tune(source_model_path, train_generator, val_generator, tune_dataset, batch_size=48, num_classes=751):
+    print('pair tune')
+    print('source_model_path:', source_model_path)
+    print('train_generator:', train_generator)
+    print('val_generator:', val_generator)
+    print('tune_dataset:', tune_dataset)
+    print('batch_size:', batch_size)
+    print('num_classes:', num_classes)
     model = pair_model(source_model_path, num_classes)
     model.compile(optimizer=SGD(lr=0.001, momentum=0.9),
                   loss={'ctg_out_1': 'categorical_crossentropy',
@@ -168,19 +193,23 @@ def pair_tune(source_model_path, train_generator, val_generator, tune_dataset, b
     # save_model = ModelCheckpoint('resnet50-{epoch:02d}-{val_ctg_out_1_acc:.2f}.h5', period=2)
     model.fit_generator(train_generator,
                         steps_per_epoch=16500 / batch_size + 1,
-                        epochs=20,
+                        epochs=2, # 20改为2
                         validation_data=val_generator,
                         validation_steps=1800 / batch_size + 1,
                         callbacks=[auto_lr, early_stopping])
+    print('model saving...')
     model.save(tune_dataset + '_pair_pretrain.h5')
+    print('model saved, location: ', tune_dataset + '_pair_pretrain')
 
 
 
-def pair_pretrain_on_dataset(source, project_path='/home/cwh/coding/rank-reid', dataset_parent='/home/cwh/coding'):
+def pair_pretrain_on_dataset(source, project_path='/media/jojo/Code/rank-reid', dataset_parent='/media/jojo/Code/rank-reid'):
+    print('pair_pretrain_on_dataset, source:', source)
     if source == 'market':
-        train_list = project_path + '/dataset/market_train.list'
-        train_dir = dataset_parent + '/Market-1501/train'
-        class_count = 751
+        # train_list = project_path + '/dataset/market_train_test.list'
+        train_list = project_path + path_config.get_test_lists(source)
+        train_dir = dataset_parent + path_config.get_train_dir(source)
+        class_count = class_helper.count_class_num_from_data_list(train_list)
     elif source == 'markets1':
         train_list = project_path + '/dataset/markets1_train.list'
         train_dir = dataset_parent + '/markets1'
@@ -215,7 +244,7 @@ def pair_pretrain_on_dataset(source, project_path='/home/cwh/coding/rank-reid', 
         train_dir = 'unknown'
         class_count = -1
     class_img_labels = reid_data_prepare(train_list, train_dir)
-    batch_size = 16
+    batch_size = train_config.get_batch_size()
     pair_tune(
         source + '_softmax_pretrain.h5',
         pair_generator(class_img_labels, batch_size=batch_size, train=True),
@@ -223,21 +252,33 @@ def pair_pretrain_on_dataset(source, project_path='/home/cwh/coding/rank-reid', 
         source,
         batch_size=batch_size, num_classes=class_count
     )
+    print('pair pretrain on dataset finished.')
 
 if __name__ == '__main__':
     # sources = ['cuhk_grid_viper_mix']
-    sources = ['cuhk', 'viper', 'market','duke']
-    for source in sources:
-        softmax_pretrain_on_dataset(source,
-                                    project_path='/home/cwh/coding/rank-reid',
-                                    dataset_parent='/home/cwh/coding/')
-        pair_pretrain_on_dataset(source)
-    sources = ['grid-cv-%d' % i for i in range(10)]
-    for source in sources:
-        softmax_pretrain_on_dataset(source,
-                                    project_path='/home/cwh/coding/rank-reid',
-                                    dataset_parent='/home/cwh/coding')
-        pair_pretrain_on_dataset(source,
-                                 project_path='/home/cwh/coding/rank-reid',
-                                 dataset_parent='/home/cwh/coding')
+    # sources = ['cuhk', 'viper', 'market','duke']
+    sources = ['market']
 
+    # added by zzc
+    print("Pair train started.")
+    # for source in sources:
+    #     print("source:", source);
+    #     softmax_pretrain_on_dataset(source,
+    #                                 project_path='/media/jojo/Code/rank-reid',
+    #                                 dataset_parent='/media/jojo/Code/rank-reid')
+    for source in sources:
+        print("source:", source);
+
+        softmax_pretrain_on_dataset(source,
+                                    project_path=path_config.get_project_path(),
+                                    dataset_parent=path_config.get_dataset_parent())
+        pair_pretrain_on_dataset(source)
+    #sources = ['grid-cv-%d' % i for i in range(10)]
+    # add by zzc
+    # sources = ['market']
+    # for source in sources:
+    #     print("source:", source);
+    #     softmax_pretrain_on_dataset(source,
+    #                                 project_path=path_config.get_project_path(),
+    #                                 dataset_parent=path_config.get_dataset_parent())
+    #     pair_pretrain_on_dataset(source)
