@@ -1,0 +1,8 @@
+import Image
+import sys
+
+img = Image.open('/media/jojo/Code/rank-reid/Market-1501/train/0002_c2s1_000301_01.jpg')
+print(img)
+print('width:', img.size[0])
+print('height:', img.size[1])
+
