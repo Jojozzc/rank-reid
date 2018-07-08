@@ -1,0 +1,260 @@
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0451_c3s1_113633_00.jpg, (True)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=0451(True), score2=0.9792979955673218
+[3.748959e-18]
+
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0934_c5s2_122299_00.jpg, (False)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=0592(False), score2=0.760951817035675
+[4.3988925e-13]
+
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0452_c4s2_040323_00.jpg, (False)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=0377(False), score2=0.3664531409740448
+[2.0718019e-18]
+
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0452_c5s1_118620_00.jpg, (False)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=0712(False), score2=0.9371241927146912
+[1.01379304e-22]
+
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0453_c1s2_043246_00.jpg, (False)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=0712(False), score2=0.17583401501178741
+[5.467114e-20]
+
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0453_c3s1_132883_00.jpg, (False)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=1269(False), score2=0.9379362463951111
+[4.4817712e-24]
+
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=1227(False), score2=0.2910914123058319
+[6.062199e-26]
+
+input: img1:0451_c3s1_113633_00.jpg, in train set?(True), img2:0934_c5s2_122299_00.jpg, (False)
+output: predict1=0451(True), score1=0.9900946021080017, predict2=0592(False), score2=0.760951817035675
+[1.2006002e-18]
+
+input: img1:0451_c3s1_113633_00.jpg, in train set?(True), img2:0452_c4s2_040323_00.jpg, (False)
+output: predict1=0451(True), score1=0.9900946021080017, predict2=0377(False), score2=0.3664531409740448
+[1.0966976e-24]
+
+input: img1:0451_c3s1_113633_00.jpg, in train set?(True), img2:0452_c5s1_118620_00.jpg, (False)
+output: predict1=0451(True), score1=0.9900946021080017, predict2=0712(False), score2=0.9371241927146912
+[1.2178842e-26]
+
+input: img1:0451_c3s1_113633_00.jpg, in train set?(True), img2:0453_c1s2_043246_00.jpg, (False)
+output: predict1=0451(True), score1=0.9900946021080017, predict2=0712(False), score2=0.17583401501178741
+[9.0219064e-26]
+
+input: img1:0451_c3s1_113633_00.jpg, in train set?(True), img2:0453_c3s1_132883_00.jpg, (False)
+output: predict1=0451(True), score1=0.9900946021080017, predict2=1269(False), score2=0.9379362463951111
+[5.4001368e-30]
+
+input: img1:0451_c3s1_113633_00.jpg, in train set?(True), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=0451(True), score1=0.9900946021080017, predict2=1227(False), score2=0.2910914123058319
+[1.6913571e-31]
+
+input: img1:0934_c5s2_122299_00.jpg, in train set?(False), img2:0452_c4s2_040323_00.jpg, (False)
+output: predict1=0592(False), score1=0.7984398007392883, predict2=0377(False), score2=0.3664531409740448
+[4.454973e-14]
+
+input: img1:0934_c5s2_122299_00.jpg, in train set?(False), img2:0452_c5s1_118620_00.jpg, (False)
+output: predict1=0592(False), score1=0.7984398007392883, predict2=0712(False), score2=0.9371241927146912
+[3.829911e-16]
+
+input: img1:0934_c5s2_122299_00.jpg, in train set?(False), img2:0453_c1s2_043246_00.jpg, (False)
+output: predict1=0592(False), score1=0.7984398007392883, predict2=0712(False), score2=0.17583401501178741
+[1.0356551e-15]
+
+input: img1:0934_c5s2_122299_00.jpg, in train set?(False), img2:0453_c3s1_132883_00.jpg, (False)
+output: predict1=0592(False), score1=0.7984398007392883, predict2=1269(False), score2=0.9379362463951111
+[2.1824567e-18]
+
+input: img1:0934_c5s2_122299_00.jpg, in train set?(False), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=0592(False), score1=0.7984398007392883, predict2=1227(False), score2=0.2910914123058319
+[1.4639542e-16]
+
+input: img1:0452_c4s2_040323_00.jpg, in train set?(False), img2:0452_c5s1_118620_00.jpg, (False)
+output: predict1=0377(False), score1=0.35277628898620605, predict2=0712(False), score2=0.9371241927146912
+[0.00508181]
+
+input: img1:0452_c4s2_040323_00.jpg, in train set?(False), img2:0453_c1s2_043246_00.jpg, (False)
+output: predict1=0377(False), score1=0.35277628898620605, predict2=0712(False), score2=0.17583401501178741
+[2.4953093e-09]
+
+idt_acc:1.0,vtc_acc:0.95
+input: img1:0452_c4s2_040323_00.jpg, in train set?(False), img2:0453_c3s1_132883_00.jpg, (False)
+output: predict1=0377(False), score1=0.35277628898620605, predict2=1269(False), score2=0.9379362463951111
+[4.3552657e-08]
+
+input: img1:0452_c4s2_040323_00.jpg, in train set?(False), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=0377(False), score1=0.35277628898620605, predict2=1227(False), score2=0.2910914123058319
+[2.6338456e-11]
+
+input: img1:0452_c5s1_118620_00.jpg, in train set?(False), img2:0453_c1s2_043246_00.jpg, (False)
+output: predict1=0712(False), score1=0.95518559217453, predict2=0712(False), score2=0.17583401501178741
+[5.6055353e-07]
+
+input: img1:0452_c5s1_118620_00.jpg, in train set?(False), img2:0453_c3s1_132883_00.jpg, (False)
+output: predict1=0712(False), score1=0.95518559217453, predict2=1269(False), score2=0.9379362463951111
+[6.5526115e-06]
+
+input: img1:0452_c5s1_118620_00.jpg, in train set?(False), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=0712(False), score1=0.95518559217453, predict2=1227(False), score2=0.2910914123058319
+[1.5432596e-19]
+
+input: img1:0453_c1s2_043246_00.jpg, in train set?(False), img2:0453_c3s1_132883_00.jpg, (False)
+output: predict1=1266(False), score1=0.23091894388198853, predict2=1269(False), score2=0.9379362463951111
+[0.642639]
+
+input: img1:0453_c1s2_043246_00.jpg, in train set?(False), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=1266(False), score1=0.23091894388198853, predict2=1227(False), score2=0.2910914123058319
+[1.0148324e-25]
+
+input: img1:0453_c3s1_132883_00.jpg, in train set?(False), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=1269(False), score1=0.925674319267273, predict2=1227(False), score2=0.2910914123058319
+[2.9469863e-24]
+
+identify num:7, correct num:7
+vertification num:28, correct num:27
+identify accurity:1.0, vertification:0.9642857142857143
+[1]
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0451_c3s1_113633_00.jpg, (True)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=0451(True), score2=0.9792979955673218
+[3.748959e-18]
+
+[2]
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0934_c5s2_122299_00.jpg, (False)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=0592(False), score2=0.760951817035675
+[4.3988925e-13]
+
+[3]
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0452_c4s2_040323_00.jpg, (False)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=0377(False), score2=0.3664531409740448
+[2.0718019e-18]
+
+[4]
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0452_c5s1_118620_00.jpg, (False)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=0712(False), score2=0.9371241927146912
+[1.01379304e-22]
+
+[5]
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0453_c1s2_043246_00.jpg, (False)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=0712(False), score2=0.17583401501178741
+[5.467114e-20]
+
+[6]
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0453_c3s1_132883_00.jpg, (False)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=1269(False), score2=0.9379362463951111
+[4.4817712e-24]
+
+[7]
+input: img1:0001_c1s1_001051_00.jpg, in train set?(False), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=0545(False), score1=0.6707582473754883, predict2=1227(False), score2=0.2910914123058319
+[6.062199e-26]
+
+[8]
+input: img1:0451_c3s1_113633_00.jpg, in train set?(True), img2:0934_c5s2_122299_00.jpg, (False)
+output: predict1=0451(True), score1=0.9900946021080017, predict2=0592(False), score2=0.760951817035675
+[1.2006002e-18]
+
+[9]
+input: img1:0451_c3s1_113633_00.jpg, in train set?(True), img2:0452_c4s2_040323_00.jpg, (False)
+output: predict1=0451(True), score1=0.9900946021080017, predict2=0377(False), score2=0.3664531409740448
+[1.0966976e-24]
+
+[10]
+input: img1:0451_c3s1_113633_00.jpg, in train set?(True), img2:0452_c5s1_118620_00.jpg, (False)
+output: predict1=0451(True), score1=0.9900946021080017, predict2=0712(False), score2=0.9371241927146912
+[1.2178842e-26]
+
+[11]
+input: img1:0451_c3s1_113633_00.jpg, in train set?(True), img2:0453_c1s2_043246_00.jpg, (False)
+output: predict1=0451(True), score1=0.9900946021080017, predict2=0712(False), score2=0.17583401501178741
+[9.0219064e-26]
+
+[12]
+input: img1:0451_c3s1_113633_00.jpg, in train set?(True), img2:0453_c3s1_132883_00.jpg, (False)
+output: predict1=0451(True), score1=0.9900946021080017, predict2=1269(False), score2=0.9379362463951111
+[5.4001368e-30]
+
+[13]
+input: img1:0451_c3s1_113633_00.jpg, in train set?(True), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=0451(True), score1=0.9900946021080017, predict2=1227(False), score2=0.2910914123058319
+[1.6913571e-31]
+
+[14]
+input: img1:0934_c5s2_122299_00.jpg, in train set?(False), img2:0452_c4s2_040323_00.jpg, (False)
+output: predict1=0592(False), score1=0.7984398007392883, predict2=0377(False), score2=0.3664531409740448
+[4.454973e-14]
+
+[15]
+input: img1:0934_c5s2_122299_00.jpg, in train set?(False), img2:0452_c5s1_118620_00.jpg, (False)
+output: predict1=0592(False), score1=0.7984398007392883, predict2=0712(False), score2=0.9371241927146912
+[3.829911e-16]
+
+[16]
+input: img1:0934_c5s2_122299_00.jpg, in train set?(False), img2:0453_c1s2_043246_00.jpg, (False)
+output: predict1=0592(False), score1=0.7984398007392883, predict2=0712(False), score2=0.17583401501178741
+[1.0356551e-15]
+
+[17]
+input: img1:0934_c5s2_122299_00.jpg, in train set?(False), img2:0453_c3s1_132883_00.jpg, (False)
+output: predict1=0592(False), score1=0.7984398007392883, predict2=1269(False), score2=0.9379362463951111
+[2.1824567e-18]
+
+[18]
+input: img1:0934_c5s2_122299_00.jpg, in train set?(False), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=0592(False), score1=0.7984398007392883, predict2=1227(False), score2=0.2910914123058319
+[1.4639542e-16]
+
+[19]
+input: img1:0452_c4s2_040323_00.jpg, in train set?(False), img2:0452_c5s1_118620_00.jpg, (False)
+output: predict1=0377(False), score1=0.35277628898620605, predict2=0712(False), score2=0.9371241927146912
+[0.00508181]
+
+[20]
+input: img1:0452_c4s2_040323_00.jpg, in train set?(False), img2:0453_c1s2_043246_00.jpg, (False)
+output: predict1=0377(False), score1=0.35277628898620605, predict2=0712(False), score2=0.17583401501178741
+[2.4953093e-09]
+
+idt_acc:1.0,vtc_acc:0.95
+[21]
+input: img1:0452_c4s2_040323_00.jpg, in train set?(False), img2:0453_c3s1_132883_00.jpg, (False)
+output: predict1=0377(False), score1=0.35277628898620605, predict2=1269(False), score2=0.9379362463951111
+[4.3552657e-08]
+
+[22]
+input: img1:0452_c4s2_040323_00.jpg, in train set?(False), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=0377(False), score1=0.35277628898620605, predict2=1227(False), score2=0.2910914123058319
+[2.6338456e-11]
+
+[23]
+input: img1:0452_c5s1_118620_00.jpg, in train set?(False), img2:0453_c1s2_043246_00.jpg, (False)
+output: predict1=0712(False), score1=0.95518559217453, predict2=0712(False), score2=0.17583401501178741
+[5.6055353e-07]
+
+[24]
+input: img1:0452_c5s1_118620_00.jpg, in train set?(False), img2:0453_c3s1_132883_00.jpg, (False)
+output: predict1=0712(False), score1=0.95518559217453, predict2=1269(False), score2=0.9379362463951111
+[6.5526115e-06]
+
+[25]
+input: img1:0452_c5s1_118620_00.jpg, in train set?(False), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=0712(False), score1=0.95518559217453, predict2=1227(False), score2=0.2910914123058319
+[1.5432596e-19]
+
+[26]
+input: img1:0453_c1s2_043246_00.jpg, in train set?(False), img2:0453_c3s1_132883_00.jpg, (False)
+output: predict1=1266(False), score1=0.23091894388198853, predict2=1269(False), score2=0.9379362463951111
+[0.642639]
+
+[27]
+input: img1:0453_c1s2_043246_00.jpg, in train set?(False), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=1266(False), score1=0.23091894388198853, predict2=1227(False), score2=0.2910914123058319
+[1.0148324e-25]
+
+[28]
+input: img1:0453_c3s1_132883_00.jpg, in train set?(False), img2:0938_c6s2_111718_00.jpg, (False)
+output: predict1=1269(False), score1=0.925674319267273, predict2=1227(False), score2=0.2910914123058319
+[2.9469863e-24]
+
+identify num:7, correct num:7
+vertification num:28, correct num:27
+identify accurity:1.0, vertification:0.9642857142857143
