@@ -107,6 +107,7 @@ def evaluate(model_path, train_list_path, probe_list_path, probe_dir, log_dir=No
     batch_count = 0
     log_name = 'market_probe.txt'
     log_path = os.path.join(log_dir, log_name)
+    counter = 0
     with open(probe_list_path, mode='r') as probe_list, open(log_path, 'a+') as log_file:
         for line in probe_list:
             probe_img_list.append(str(line).strip())
@@ -114,6 +115,8 @@ def evaluate(model_path, train_list_path, probe_list_path, probe_dir, log_dir=No
         for i in range(len(probe_img_list)):
             for j in range(i + 1, len(probe_img_list)):
                 # identify_test_num += 2
+                counter += 1
+                log_file.write('[{}]\n'.format(counter))
                 vertification_num += 1
                 img_1 = load_single_img(os.path.join(probe_dir, probe_img_list[i]))
                 img_2 = load_single_img(os.path.join(probe_dir, probe_img_list[j]))
@@ -143,6 +146,7 @@ def evaluate(model_path, train_list_path, probe_list_path, probe_dir, log_dir=No
                 if (real_label1 == real_label2 and bin_out >= threadhold) or (real_label1 != real_label2 and bin_out <= threadhold / 2):
                     vertification_correct_num += 1
 
+
                 input_str = 'input: img1:{img1}, in train set?({is_in1}), img2:{img2}, ({is_in2})'.format(img1=probe_img_list[i],
                                                                                                           img2=probe_img_list[j],
                                                                                                           is_in1=is_img1_in_train_set,
@@ -155,6 +159,12 @@ def evaluate(model_path, train_list_path, probe_list_path, probe_dir, log_dir=No
                 log_file.write('\n')
                 batch_count += 1
                 if batch_count == write_log_batch:
+                    if identify_test_num != 0:
+                        identify_accurity = identify_correct_num / identify_test_num
+                    if vertification_num != 0:
+                        vertification_accurity = vertification_correct_num / vertification_num
+                    log_file.write('idt_acc:{},'.format(identify_accurity))
+                    log_file.write('vtc_acc:{}\n'.format(vertification_accurity))
                     log_file.flush()
                     batch_count = 0
                 print(input_str)
