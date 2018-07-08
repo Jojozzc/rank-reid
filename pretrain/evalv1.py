@@ -143,8 +143,8 @@ def evaluate(model_path, train_list_path, probe_list_path, probe_dir, log_dir=No
                 if (real_label1 == real_label2 and bin_out >= threadhold) or (real_label1 != real_label2 and bin_out <= threadhold / 2):
                     vertification_correct_num += 1
 
-                input_str = 'input: img1:{img1}, in train set?({is_in1}), img2:{img2}, ({is_in2})'.format(img1=real_label1,
-                                                                                                          img2=real_label2,
+                input_str = 'input: img1:{img1}, in train set?({is_in1}), img2:{img2}, ({is_in2})'.format(img1=probe_img_list[i],
+                                                                                                          img2=probe_img_list[j],
                                                                                                           is_in1=is_img1_in_train_set,
                                                                                                           is_in2=is_img2_in_train_set)
                 output_str = 'output: predict1={}({}), score1={}, predict2={}({}), score2={}'\
