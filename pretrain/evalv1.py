@@ -93,7 +93,7 @@ def extract_label_from_name(file_name):
 # def get_probe_data(probe_dir):
 
 
-def evaluate(model_path, train_list_path, probe_list_path, probe_dir, log_dir=None, threadhold = 0.1):
+def evaluate(model_path, train_list_path, probe_list_path, probe_dir, log_dir=None, threadhold = 0.1, write_log_batch=20):
     labels = label_list(train_list_path)
     model = load_model(filepath=model_path)
     model.summary()
@@ -104,7 +104,10 @@ def evaluate(model_path, train_list_path, probe_list_path, probe_dir, log_dir=No
     vertification_num = 0
     identify_correct_num = 0
     vertification_correct_num = 0
-    with open(probe_list_path, mode='r') as probe_list:
+    batch_count = 0
+    log_name = 'market_probe.txt'
+    log_path = os.path.join(log_dir, log_name)
+    with open(probe_list_path, mode='r') as probe_list, open(log_path, 'a+') as log_file:
         for line in probe_list:
             probe_img_list.append(str(line).strip())
 
@@ -144,7 +147,16 @@ def evaluate(model_path, train_list_path, probe_list_path, probe_dir, log_dir=No
                                                                                                           img2=real_label2,
                                                                                                           is_in1=is_img1_in_train_set,
                                                                                                           is_in2=is_img2_in_train_set)
-                output_str = 'output: predict1={}, score1={}, predict2={}, score2={}'.format(pdt_id1, score1, pdt_id2, score2)
+                output_str = 'output: predict1={}({}), score1={}, predict2={}({}), score2={}'\
+                    .format(pdt_id1, pdt_id1==real_label1, score1, pdt_id2, pdt_id2==real_label2, score2)
+                log_file.write(input_str + '\n')
+                log_file.write(output_str + '\n')
+                log_file.write(str(bin_out[0]) + '\n')
+                log_file.write('\n')
+                batch_count += 1
+                if batch_count == write_log_batch:
+                    log_file.flush()
+                    batch_count = 0
                 print(input_str)
                 print(output_str)
                 print('bin_out:', bin_out)
@@ -153,12 +165,14 @@ def evaluate(model_path, train_list_path, probe_list_path, probe_dir, log_dir=No
             identify_accurity = identify_correct_num / identify_test_num
         if vertification_num != 0:
             vertification_accurity = vertification_correct_num / vertification_num
-
+        log_file.write('identify num:{}, correct num:{}\n'.format(identify_test_num, identify_correct_num))
+        log_file.write('vertification num:{}, correct num:{}\n'.format(vertification_num, vertification_correct_num))
+        log_file.write('identify accurity:{}, vertification:{}\n'.format(identify_accurity, vertification_accurity))
+        probe_list.close()
+        log_file.close()
         print('identify num:{}, correct num:{}'.format(identify_test_num, identify_correct_num))
         print('vertification num:{}, correct num:{}'.format(vertification_num, vertification_correct_num))
         print('identify accurity:{}, vertification:{}'.format(identify_accurity, vertification_accurity))
-
-
 
 
 def predict_test():
@@ -197,4 +211,5 @@ if __name__ == '__main__':
     model_path = '/media/jojo/Code/rank-reid/pretrain/market_pair_pretrain.h5'
     evaluate(model_path, train_list_path='/media/jojo/Code/rank-reid/dataset/market_train.list',
              probe_list_path='/media/jojo/Code/rank-reid/dataset/probe_1.list',
-             probe_dir='/media/jojo/Code/rank-reid/Market-1501/probe')
+             probe_dir='/media/jojo/Code/rank-reid/Market-1501/probe',
+             log_dir='/media/jojo/Code/rank-reid/pretrain')
