@@ -186,6 +186,10 @@ def softmax_pretrain_on_dataset(source, project_path='/media/jojo/Code/rank-reid
         train_list = project_path + path_config.get_test_lists(source)
         train_dir = project_path + path_config.get_train_dir(source)
         class_count = class_helper.count_class_num_from_data_list(train_list)
+    elif 'tumor' == source:
+        class_count = 2
+        train_list = os.path.join(project_path, 'dataset/tumor_train.list')
+        train_dir = os.path.join(project_path, 'datasource/tumor-data/train')
     elif source == 'grid':
         train_list = project_path + '/dataset/grid_train.list'
         train_dir = dataset_parent + '/grid_label'
@@ -223,4 +227,4 @@ if __name__ == '__main__':
     # sources = ['market']
     sources = path_config.get_sources()
     for source in sources:
-        softmax_pretrain_on_dataset(source)
+        softmax_pretrain_on_dataset(source, project_path='/run/media/kele/DataSSD/Code/multi-task/rank-reid', dataset_parent='/run/media/kele/DataSSD/Code/multi-task/rank-reid/dataset')

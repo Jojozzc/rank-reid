@@ -1,6 +1,9 @@
-sources = ['market']
-project_path = '/media/jojo/Code/rank-reid'
-dataset_parent = '/media/jojo/Code/rank-reid'
+import os
+sources = ['tumor']
+project_path = '/run/media/kele/DataSSD/Code/multi-task/rank-reid'
+dataset_parent = os.path.join(project_path, 'datasource/tumor-data')
+
+
 train_dirs = {'market':'/Market-1501-1/train'}
 probe_dirs = {'market':'/Market-1501-1/probe'}
 test_dir = {'market':'/Market-1501-1/test'}

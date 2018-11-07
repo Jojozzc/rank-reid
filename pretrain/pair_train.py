@@ -257,8 +257,8 @@ def pair_pretrain_on_dataset(source, project_path='/media/jojo/Code/rank-reid', 
 if __name__ == '__main__':
     # sources = ['cuhk_grid_viper_mix']
     # sources = ['cuhk', 'viper', 'market','duke']
-    sources = ['market']
-
+    # sources = ['market']
+    sources = ['tumor']
     # added by zzc
     print("Pair train started.")
     # for source in sources:
@@ -272,7 +272,7 @@ if __name__ == '__main__':
         softmax_pretrain_on_dataset(source,
                                     project_path=path_config.get_project_path(),
                                     dataset_parent=path_config.get_dataset_parent())
-        pair_pretrain_on_dataset(source)
+        pair_pretrain_on_dataset(source,project_path=path_config.get_project_path(), dataset_parent=path_config.get_dataset_parent())
     #sources = ['grid-cv-%d' % i for i in range(10)]
     # add by zzc
     # sources = ['market']
