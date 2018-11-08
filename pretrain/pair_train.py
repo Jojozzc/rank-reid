@@ -210,6 +210,10 @@ def pair_pretrain_on_dataset(source, project_path='/media/jojo/Code/rank-reid', 
         train_list = project_path + path_config.get_test_lists(source)
         train_dir = dataset_parent + path_config.get_train_dir(source)
         class_count = class_helper.count_class_num_from_data_list(train_list)
+    elif source == 'tumor':
+        class_count = 2
+        train_list = os.path.join(project_path, 'dataset/tumor_train.list')
+        train_dir = os.path.join(project_path, 'datasource/tumor-data/train')
     elif source == 'markets1':
         train_list = project_path + '/dataset/markets1_train.list'
         train_dir = dataset_parent + '/markets1'
