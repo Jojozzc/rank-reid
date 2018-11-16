@@ -276,9 +276,10 @@ def batch_seg_by_xml():
 
 
 if __name__ == '__main__':
-	batch_img_resize_save(source_dir='/run/media/kele/DataSSD/Code/multi-task/rank-reid/datasource/voc-data/test_temp',
-						  target_dir='/run/media/kele/DataSSD/Code/multi-task/rank-reid/datasource/voc-data/test_temp',
-						  target_size=[224, 224, 3])
+	pass
+	# batch_img_resize_save(source_dir='/run/media/kele/DataSSD/Code/multi-task/rank-reid/datasource/voc-data/test_temp',
+	# 					  target_dir='/run/media/kele/DataSSD/Code/multi-task/rank-reid/datasource/voc-data/test_temp',
+	# 					  target_size=[224, 224, 3])
 	# batch_seg_by_xml()
 	# xml_seg_test()
 	# xml_test()

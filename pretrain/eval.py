@@ -12,7 +12,6 @@ from transfer.simple_rank_transfer import cross_entropy_loss
 
 #
 
-
 def train_pair_predict(pair_model_path, target_train_path, pid_path, score_path):
     model = load_model(pair_model_path)
     model = Model(inputs=[model.get_layer('resnet50').get_input_at(0)],
