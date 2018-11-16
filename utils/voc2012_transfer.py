@@ -2,10 +2,12 @@
 import os
 import shutil
 from scipy import misc
-from utils import str_util
-
 from xml.dom.minidom import parse
 import xml.dom.minidom
+
+
+from utils import str_util, bounding_core
+
 
 VOC2012_BASE_PATH = '/run/media/kele/Data/VOCtrainval_11-May-2012/VOCdevkit/VOC2012'
 
@@ -202,9 +204,13 @@ def batch_resize_test():
 	batch_img_resize_save(source_dir, target_dir, target_size)
 
 
-def seg_img_by_xml(source_img_path, xml_path, save_to_dir):
-	DOMTree = xml.dom.minidom.parse(xml_path)
-	collection = DOMTree.documentElement
+def seg_img_by_xml(source_img_path, xml_path, seg_obj_name, save_to_dir, file_pre_name, suffix):
+	img = misc.imread(source_img_path)
+	bnds = get_bound_rect_from_xml(xml_path, seg_obj_name)
+	for i in range(len(bnds)):
+		bnd = bnds[i]
+		seg_img = bounding_core.img_segmentation(img, bnd)
+		misc.imsave(os.path.join(save_to_dir, file_pre_name + str(i) + suffix), seg_img)
 
 
 def get_bound_rect_from_xml(xml_path, object_name):
@@ -232,9 +238,18 @@ def get_bound_rect_from_xml(xml_path, object_name):
 				y_max = int(y_max.childNodes[0].nodeValue)
 
 				# bound_rect: [[most_up, most_left], [most_down, most_right]]
-				bnd_rect = [[x_min, y_min], [x_max, y_max]]
+				bnd_rect = [[y_min - 1, x_min - 1], [y_max - 1, x_max - 1]]
 				res.append(bnd_rect)
-				print(bnd_rect)
+	return res
+
+
+def xml_seg_test():
+	source_img_path = '/run/media/kele/DataSSD/Code/multi-task/rank-reid/datasource/voc-data/train/0_2008_000096.jpg'
+	xml_path = '/run/media/kele/Data/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/Annotations/2008_000096.xml'
+	save_dir = '/run/media/kele/DataSSD/Code/multi-task/rank-reid/datasource/voc-data/temp'
+	seg_img_by_xml(
+		source_img_path=source_img_path, xml_path=xml_path,
+		seg_obj_name='cat', save_to_dir=save_dir, file_pre_name='2008000096_seg_test', suffix='.jpg')
 
 
 def xml_test():
@@ -243,6 +258,7 @@ def xml_test():
 
 
 if __name__ == '__main__':
-	xml_test()
+	xml_seg_test()
+	# xml_test()
 	# count_animal_seg_cls(voc2012_base=VOC2012_BASE_PATH)
 	# batch_resize_test()
