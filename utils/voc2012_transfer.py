@@ -29,8 +29,13 @@ def gen_voc_data():
 			line = txt.readline()
 			count = 0
 			while line and count < train_num:
-				line = line.strip().split(' ')[0]
-				print(line)
+				sp = line.strip().split(' ')
+				print(sp)
+				if not sp[1] == '1':
+					line = txt.readline()
+					continue
+				print(sp[0] + sp[1])
+				line = sp[0]
 				count = count + 1
 				train_list.append(line)
 				line = txt.readline()
@@ -44,10 +49,17 @@ def gen_voc_data():
 			line = txt.readline()
 			count = 0
 			while line and count < test_num:
+				sp = line.strip().split(' ')
+				print(sp)
+				if not sp[1] == '1':
+					line = txt.readline()
+					continue
+				print(sp[0] + sp[1])
+				line = sp[0]
 				count = count + 1
-				line = line.strip().split(' ')[0]
 				test_list.append(line)
 				line = txt.readline()
+
 			copy_file_by_list_rename(
 				source_dir=img_source_dir,
 				target_dir=os.path.join(rank_reid_datasource_voc_base_dir, 'test'),
