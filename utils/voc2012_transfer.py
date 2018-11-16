@@ -1,6 +1,11 @@
 # Select useful from voc2012 dataset.
 import os
 import shutil
+from scipy import misc
+from utils import str_util
+
+from xml.dom.minidom import parse
+import xml.dom.minidom
 
 VOC2012_BASE_PATH = '/run/media/kele/Data/VOCtrainval_11-May-2012/VOCdevkit/VOC2012'
 
@@ -182,7 +187,62 @@ def count_animal_seg_cls(voc2012_base):
 			val_file.write(idx + '\n')
 
 
+def batch_img_resize_save(source_dir, target_dir, target_size):
+	suffixes = ['jpg', 'png', 'jpeg', 'bmp']
+	for file in os.listdir(source_dir):
+		if str_util.confirm_file_type(file, *suffixes):
+			img = misc.imread(os.path.join(source_dir, file))
+			img = misc.imresize(img, target_size)
+			misc.imsave(os.path.join(target_dir, file), img)
+
+def batch_resize_test():
+	source_dir = '/run/media/kele/DataSSD/Code/multi-task/rank-reid/datasource/voc-data/tttest'
+	target_dir = source_dir
+	target_size = [224, 224, 3]
+	batch_img_resize_save(source_dir, target_dir, target_size)
+
+
+def seg_img_by_xml(source_img_path, xml_path, save_to_dir):
+	DOMTree = xml.dom.minidom.parse(xml_path)
+	collection = DOMTree.documentElement
+
+
+def get_bound_rect_from_xml(xml_path, object_name):
+	DOMTree = xml.dom.minidom.parse(xml_path)
+	collection = DOMTree.documentElement
+	objs = collection.getElementsByTagName('object')
+	res = []
+	for obj in objs:
+		name = obj.getElementsByTagName('name')[0]
+		if name is not None:
+			if name.childNodes[0].nodeValue == object_name:
+				print(object_name)
+				bnd = obj.getElementsByTagName('bndbox')[0]
+
+				x_min = bnd.getElementsByTagName('xmin')[0]
+				x_min = int(x_min.childNodes[0].nodeValue)
+
+				y_min = bnd.getElementsByTagName('ymin')[0]
+				y_min = int(y_min.childNodes[0].nodeValue)
+
+				x_max = bnd.getElementsByTagName('xmax')[0]
+				x_max = int(x_max.childNodes[0].nodeValue)
+
+				y_max = bnd.getElementsByTagName('ymax')[0]
+				y_max = int(y_max.childNodes[0].nodeValue)
+
+				# bound_rect: [[most_up, most_left], [most_down, most_right]]
+				bnd_rect = [[x_min, y_min], [x_max, y_max]]
+				res.append(bnd_rect)
+				print(bnd_rect)
+
+
+def xml_test():
+	xml_path = '/run/media/kele/Data/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/Annotations/2007_000027.xml'
+	get_bound_rect_from_xml(xml_path, 'person')
+
+
 if __name__ == '__main__':
+	xml_test()
 	# count_animal_seg_cls(voc2012_base=VOC2012_BASE_PATH)
-	gen_voc_data()
-	print('ok')
+	# batch_resize_test()
