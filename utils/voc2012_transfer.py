@@ -6,6 +6,7 @@ VOC2012_BASE_PATH = '/run/media/kele/Data/VOCtrainval_11-May-2012/VOCdevkit/VOC2
 
 
 def copy_file_by_list_rename(source_dir, target_dir, file_list, class_id):
+	print('copy start')
 	for file in file_list:
 		if file:
 			file = file + '.jpg'
@@ -31,7 +32,7 @@ def gen_voc_data():
 			while line and count < train_num:
 				sp = line.strip().split(' ')
 				print(sp)
-				if not sp[1] == '1':
+				if len(sp) <= 2 or not sp[2] == '1':
 					line = txt.readline()
 					continue
 				print(sp[0] + sp[1])
@@ -51,7 +52,7 @@ def gen_voc_data():
 			while line and count < test_num:
 				sp = line.strip().split(' ')
 				print(sp)
-				if not sp[1] == '1':
+				if len(sp) <= 2 or not sp[2] == '1':
 					line = txt.readline()
 					continue
 				print(sp[0] + sp[1])
