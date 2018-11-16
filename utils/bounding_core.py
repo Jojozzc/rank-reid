@@ -137,6 +137,7 @@ def img_segmentation(img_data, bounding_rect):
     result = np.zeros(shape=(rows, cols, 3))
     print("result shape:" + str(result.shape))
 
+# ought to be optimized use :
     for i in range(rows):
         for j in range(cols):
             result[i][j] = img_data[start_x + i][start_y + j]
@@ -170,6 +171,7 @@ def test_for_img_seg_by_rate():
     print(rect)
     result = img_seg_by_rate(source_img, rect, 1)
     imshow(result)
+
 
 if __name__ == '__main__':
     test_for_img_seg_by_rate()

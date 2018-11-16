@@ -257,8 +257,30 @@ def xml_test():
 	get_bound_rect_from_xml(xml_path, 'person')
 
 
+def batch_seg_by_xml():
+	source_dir = '/run/media/kele/DataSSD/Code/multi-task/rank-reid/datasource/voc-data/test'
+	xml_dir = os.path.join(VOC2012_BASE_PATH, 'Annotations')
+	save_to_dir = '/run/media/kele/DataSSD/Code/multi-task/rank-reid/datasource/voc-data/test_temp'
+	objects = ['cat', 'cow', 'dog', 'horse', 'sheep']
+	for file in os.listdir(source_dir):
+		if str_util.confirm_file_type(file, *['jpg']):
+			idx = file[2:-4]
+			xml_path = os.path.join(xml_dir, idx + '.xml')
+			seg_img_by_xml(
+				source_img_path=os.path.join(source_dir, file),
+				xml_path=xml_path,
+				seg_obj_name=objects[int(file[0])],
+				save_to_dir=save_to_dir,
+				file_pre_name=file[0:-4],
+				suffix=file[-4:])
+
+
 if __name__ == '__main__':
-	xml_seg_test()
+	batch_img_resize_save(source_dir='/run/media/kele/DataSSD/Code/multi-task/rank-reid/datasource/voc-data/test_temp',
+						  target_dir='/run/media/kele/DataSSD/Code/multi-task/rank-reid/datasource/voc-data/test_temp',
+						  target_size=[224, 224, 3])
+	# batch_seg_by_xml()
+	# xml_seg_test()
 	# xml_test()
 	# count_animal_seg_cls(voc2012_base=VOC2012_BASE_PATH)
 	# batch_resize_test()
