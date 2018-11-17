@@ -235,6 +235,7 @@ def pair_pretrain_on_dataset(source, project_path='/media/jojo/Code/rank-reid', 
         train_dir = dataset_parent + '/DukeMTMC-reID/train'
         class_count = 702
     elif source == 'voc2012':
+        print(source)
         train_list = project_path + '/dataset/voc2012-train.list'
         train_dir = dataset_parent + '/dataset/voc-data/train_temp'
     elif 'grid-cv' in source:
@@ -265,7 +266,8 @@ if __name__ == '__main__':
     # sources = ['cuhk_grid_viper_mix']
     # sources = ['cuhk', 'viper', 'market','duke']
     # sources = ['market']
-    sources = ['tumor']
+    # sources = ['tumor']
+    sources = ['voc2012']
     # added by zzc
     print("Pair train started.")
     # for source in sources:
@@ -274,8 +276,7 @@ if __name__ == '__main__':
     #                                 project_path='/media/jojo/Code/rank-reid',
     #                                 dataset_parent='/media/jojo/Code/rank-reid')
     for source in sources:
-        print("source:", source);
-
+        print("source:", source)
         softmax_pretrain_on_dataset(source,
                                     project_path=path_config.get_project_path(),
                                     dataset_parent=path_config.get_dataset_parent())

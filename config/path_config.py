@@ -1,7 +1,7 @@
 import os
-sources = ['tumor']
+sources = ['voc2012']
 project_path = '/run/media/kele/DataSSD/Code/multi-task/rank-reid'
-dataset_parent = os.path.join(project_path, 'datasource/tumor-data')
+dataset_parent = os.path.join(project_path, 'datasource/voc-data')
 
 
 train_dirs = {'market':'/Market-1501-1/train'}

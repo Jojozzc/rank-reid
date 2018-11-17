@@ -86,6 +86,8 @@ def load_data(LIST, TRAIN):
         for line in f:
             line = line.strip()
             img = line
+            if line == '':
+                continue
             print('image:', img)
             lbl = line.split('_')[0]
             if last_label != lbl:
@@ -206,6 +208,10 @@ def softmax_pretrain_on_dataset(source, project_path='/media/jojo/Code/rank-reid
         train_list = project_path + '/dataset/duke_train.list'
         train_dir = dataset_parent + '/DukeMTMC-reID/train'
         class_count = 702
+    elif source == 'voc2012':
+        train_list = project_path + '/dataset/voc2012-train.list'
+        train_dir = project_path + '/datasource/voc-data/train_temp'
+        class_count = 5
     elif 'grid-cv' in source:
         cv_idx = int(source.split('-')[-1])
         train_list = project_path + '/dataset/grid-cv/%d.list' % cv_idx
