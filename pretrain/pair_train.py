@@ -1,5 +1,7 @@
 import os
 
+import json
+
 from config import train_config
 from config import path_config
 from resnet import *
@@ -262,6 +264,13 @@ def pair_pretrain_on_dataset(source, project_path='/media/jojo/Code/rank-reid', 
     )
     print('pair pretrain on dataset finished.')
 
+
+def load_config(config_path):
+    config_file = open(config_path)
+    config_json = json.load(config_file)
+    config = {}
+
+
 if __name__ == '__main__':
     # sources = ['cuhk_grid_viper_mix']
     # sources = ['cuhk', 'viper', 'market','duke']
@@ -275,6 +284,7 @@ if __name__ == '__main__':
     #     softmax_pretrain_on_dataset(source,
     #                                 project_path='/media/jojo/Code/rank-reid',
     #                                 dataset_parent='/media/jojo/Code/rank-reid')
+
     for source in sources:
         print("source:", source)
         softmax_pretrain_on_dataset(source,

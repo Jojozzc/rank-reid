@@ -1,6 +1,5 @@
 # coding=utf-8
 import os
-
 from keras import backend as K
 from keras.engine import Model
 from keras.models import load_model
@@ -99,5 +98,3 @@ if __name__ == '__main__':
                        QUERY='/home/cwh/coding/Market-1501/probe')
     grid_eval('market', '/home/cwh/coding/grid_train_probe_gallery/cross0')
     grid_result_eval('/home/cwh/coding/TrackViz/data/market_grid-cv0-test/cross_filter_pid.log')
-
-
